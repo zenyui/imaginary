@@ -10,7 +10,6 @@ submodule:
 
 build-image:
     FROM DOCKERFILE -f +submodule/imaginary/Dockerfile +submodule/imaginary/*
-    SAVE IMAGE imaginary
 
 build-production:
     FROM +build-image
@@ -18,4 +17,10 @@ build-production:
     SAVE IMAGE --push ghcr.io/zenyui/imaginary:${VERSION}
 
 all:
-    BUILD +build-production
+    # BUILD +build-production
+    BUILD +build-testing-ci
+
+build-testing-ci:
+    FROM +submodule
+    ARG VERSION=dev
+    SAVE IMAGE --push ghcr.io/zenyui/imaginary:${VERSION}
