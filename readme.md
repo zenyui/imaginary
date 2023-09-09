@@ -4,5 +4,6 @@ This repo builds the latest [h2non/imaginary](https://github.com/h2non/imaginary
 
 ### Building the image
 ```sh
+# builds the "all" target
 earthly +all
 ```
