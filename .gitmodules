@@ -1,0 +1,3 @@
+[submodule "imaginary"]
+	path = imaginary
+	url = git@github.com:h2non/imaginary.git

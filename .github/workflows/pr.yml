@@ -1,0 +1,36 @@
+name: pr
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_COLOR: 1
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: false
+      - name: checkout submodules
+        run: "git submodule update --init"
+      - name: Docker Login
+        env:
+          DOCKER_REGISTRY: ghcr.io
+          DOCKER_USER: ${{ github.actor }}
+          DOCKER_PASS: ${{ secrets.GITHUB_TOKEN }}
+        run: docker login $DOCKER_REGISTRY --username "$DOCKER_USER" --password "$DOCKER_PASS"
+      - name: Download latest earthly
+        run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.7.0/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
+      - name: Earthly version
+        run: earthly --version
+      - name: Run build
+        env:
+          EARTHLY_BUILD_ARGS: "COMMIT_HASH,VERSION"
+          COMMIT_HASH: ${{ github.sha }}
+          # TODO: maybe compute smarter version numbers here?
+          VERSION: "0.0.0-pr"
+          FORCE_COLOR: 1
+        run: |
+          earthly -P --ci --output +all
