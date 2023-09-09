@@ -40,7 +40,7 @@ jobs:
       - name: Run build
         env:
           EARTHLY_BUILD_ARGS: "VERSION"
-          VERSION: ${{ steps.version.outputs.short_sha }}
+          VERSION: ${{ steps.version.outputs.sha_short }}
           GH_USER: ${{ github.actor }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           EARTHLY_SECRETS: "GH_USER,GH_TOKEN"

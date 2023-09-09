@@ -17,10 +17,4 @@ build-production:
     SAVE IMAGE --push ghcr.io/zenyui/imaginary:${VERSION}
 
 all:
-    # BUILD +build-production
-    BUILD +build-testing-ci
-
-build-testing-ci:
-    FROM +submodule
-    ARG VERSION=dev
-    SAVE IMAGE --push ghcr.io/zenyui/imaginary:${VERSION}
+    BUILD +build-production
