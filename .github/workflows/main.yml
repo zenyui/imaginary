@@ -32,7 +32,7 @@ jobs:
       - name: check version
         env:
           VERSION: ${{ steps.version.outputs.sha_short }}
-        run: echo "sha_short=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+        run: echo $VERSION
       - name: Run build
         env:
           EARTHLY_BUILD_ARGS: "VERSION"
