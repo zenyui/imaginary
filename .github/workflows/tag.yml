@@ -31,7 +31,7 @@ jobs:
         run: earthly --version
       - name: get version
         id: version
-        run: echo "tag=`echo ${GITHUB_REF_NAME} | cut -c1-8`" >> $GITHUB_ENV
+        run: echo "tag=`echo ${GITHUB_REF_NAME} | cut -c1-8`" >> $GITHUB_OUTPUT
       - name: Run build
         env:
           EARTHLY_BUILD_ARGS: "VERSION"
